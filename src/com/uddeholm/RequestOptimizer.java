@@ -5,28 +5,28 @@ import java.util.List;
 
 public class RequestOptimizer {
 	
-	public List<List<Machine>> GetOptimizedRequestSet(List<Machine> machines) {
-		List<List<Machine>> optimizedList;
+	public List<List<Signal>> GetOptimizedRequestSet(List<Signal> signals) {
+		List<List<Signal>> optimizedList;
 		List<Integer> datablocks;
 		
-		datablocks = GetDatablocks(machines);
-		optimizedList = SortSignalsByDatablock(datablocks, machines);
+		datablocks = GetDatablocks(signals);
+		optimizedList = SortSignalsByDatablock(datablocks, signals);
 		optimizedList = SortSignalsByOffset(optimizedList, 4);
 		return optimizedList;
 	}
 
-	private List<List<Machine>> SortSignalsByOffset(List<List<Machine>> optimizedList, int maxOverhead) {
-		List<List<Machine>> list = new ArrayList<List<Machine>>();
-		for(List<Machine> machines : optimizedList) {
+	private List<List<Signal>> SortSignalsByOffset(List<List<Signal>> optimizedList, int maxOverhead) {
+		List<List<Signal>> list = new ArrayList<List<Signal>>();
+		for(List<Signal> machines : optimizedList) {
 			list.addAll(SplitSignalsByOffset(machines, maxOverhead));
 		}
 		return list;
 	}
 
-	private List<List<Machine>> SplitSignalsByOffset(List<Machine> machines, int maxOverhead) {
-		List<List<Machine>> optimizedSubList = new ArrayList<List<Machine>>();
-		List<Machine> list = new ArrayList<Machine>();
-		List<Machine> temp;
+	private List<List<Signal>> SplitSignalsByOffset(List<Signal> machines, int maxOverhead) {
+		List<List<Signal>> optimizedSubList = new ArrayList<List<Signal>>();
+		List<Signal> list = new ArrayList<Signal>();
+		List<Signal> temp;
 		
 		for(int i=0;i<machines.size();i++) {
 			if(i == 0) {
@@ -37,7 +37,7 @@ public class RequestOptimizer {
 					list.add(machines.get(i));
 				}
 				else {
-					optimizedSubList.add(new ArrayList<Machine>(list));
+					optimizedSubList.add(new ArrayList<Signal>(list));
 					list.clear();
 					list.add(machines.get(i));
 				}
@@ -49,16 +49,16 @@ public class RequestOptimizer {
 		return optimizedSubList;
 	}
 
-	private Machine GetLastItem(List<Machine> list) {
-		Machine lastItem = list.get(list.size()-1);
+	private Signal GetLastItem(List<Signal> list) {
+		Signal lastItem = list.get(list.size()-1);
 		return lastItem;
 	}
 
-	private List<List<Machine>> SortSignalsByDatablock(List<Integer> datablocks, List<Machine> machines) {
-		List<List<Machine>> optimizedList = new ArrayList<List<Machine>>();
+	private List<List<Signal>> SortSignalsByDatablock(List<Integer> datablocks, List<Signal> machines) {
+		List<List<Signal>> optimizedList = new ArrayList<List<Signal>>();
 		for(int datablock : datablocks) {
-			List<Machine> list = new ArrayList<Machine>();
-			for(Machine machine : machines) {
+			List<Signal> list = new ArrayList<Signal>();
+			for(Signal machine : machines) {
 				if(machine.GetDatablock() == datablock) {
 					list.add(machine);
 				}
@@ -68,9 +68,9 @@ public class RequestOptimizer {
 		return optimizedList;
 	}
 
-	private List<Integer> GetDatablocks(List<Machine> machines) {
+	private List<Integer> GetDatablocks(List<Signal> machines) {
 		List<Integer> datablocks = new ArrayList<Integer>();
-		for(Machine machine : machines) {
+		for(Signal machine : machines) {
 			if(!datablocks.contains(machine.GetDatablock())) {
 				datablocks.add(machine.GetDatablock());
 			}

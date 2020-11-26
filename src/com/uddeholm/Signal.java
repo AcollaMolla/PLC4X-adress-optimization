@@ -1,6 +1,6 @@
 package com.uddeholm;
 
-public class Machine {
+public class Signal {
 	
 	private String name;
 	private String address; //ie DB63.DBD0:REAL[4]
@@ -8,7 +8,7 @@ public class Machine {
 	private int offset;
 	private int size;
 	
-	public Machine(String name, String address, int datablock, int offset, int size) {
+	public Signal(String name, String address, int datablock, int offset, int size) {
 		this.name = name;
 		this.address = address;
 		this.datablock = datablock;
