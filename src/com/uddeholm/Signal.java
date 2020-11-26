@@ -7,9 +7,9 @@ public class Signal {
 	private int datablock;
 	private int offset;
 	private int size;
-	private int datatype;
+	private S7Datatypes datatype;
 	
-	public Signal(String name, String address, int datablock, int offset, int size, int datatype) {
+	public Signal(String name, String address, int datablock, int offset, int size, S7Datatypes datatype) {
 		this.name = name;
 		this.address = address;
 		this.datablock = datablock;
@@ -30,7 +30,7 @@ public class Signal {
 		return this.offset;
 	}
 	
-	public int GetDatatype() {
+	public S7Datatypes GetDatatype() {
 		return this.datatype;
 	}
 

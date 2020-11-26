@@ -8,7 +8,7 @@ public class RequestOptimizer {
 	public List<List<Signal>> GetOptimizedRequestSet(List<Signal> signals) {
 		List<List<Signal>> optimizedList;
 		List<Integer> datablocks;
-		List<Integer> datatypes;
+		List<S7Datatypes> datatypes;
 		
 		datablocks = GetDatablocks(signals);
 		datatypes = GetDatatypes(signals);
@@ -19,7 +19,7 @@ public class RequestOptimizer {
 		return optimizedList;
 	}
 
-	private List<List<Signal>> SortSignalByDatatype(List<Integer> datatypes, List<List<Signal>> optimizedList) {
+	private List<List<Signal>> SortSignalByDatatype(List<S7Datatypes> datatypes, List<List<Signal>> optimizedList) {
 		List<List<Signal>> list = new ArrayList<List<Signal>>();
 		for(List<Signal> signals : optimizedList) {
 			list.addAll(SplitListByDatatype(signals, datatypes));
@@ -27,9 +27,9 @@ public class RequestOptimizer {
 		return list;
 	}
 
-	private List<List<Signal>> SplitListByDatatype(List<Signal> signals, List<Integer> datatypes) {
+	private List<List<Signal>> SplitListByDatatype(List<Signal> signals, List<S7Datatypes> datatypes) {
 		List<List<Signal>> list = new ArrayList<List<Signal>>();
-		for(Integer datatype : datatypes) {
+		for(S7Datatypes datatype : datatypes) {
 			List<Signal> similarDatatypes = new ArrayList<Signal>();
 			for(Signal signal : signals) {
 				if(signal.GetDatatype() == datatype) {
@@ -41,8 +41,8 @@ public class RequestOptimizer {
 		return list;
 	}
 
-	private List<Integer> GetDatatypes(List<Signal> signals) {
-		List<Integer> datatypes = new ArrayList<Integer>();
+	private List<S7Datatypes> GetDatatypes(List<Signal> signals) {
+		List<S7Datatypes> datatypes = new ArrayList<S7Datatypes>();
 		for(Signal signal : signals) {
 			if(!datatypes.contains(signal.GetDatatype())) {
 				datatypes.add(signal.GetDatatype());
