@@ -8,11 +8,47 @@ public class RequestOptimizer {
 	public List<List<Signal>> GetOptimizedRequestSet(List<Signal> signals) {
 		List<List<Signal>> optimizedList;
 		List<Integer> datablocks;
+		List<Integer> datatypes;
 		
 		datablocks = GetDatablocks(signals);
+		datatypes = GetDatatypes(signals);
+		
 		optimizedList = SortSignalsByDatablock(datablocks, signals);
+		optimizedList = SortSignalByDatatype(datatypes, optimizedList);
 		optimizedList = SortSignalsByOffset(optimizedList, 4);
 		return optimizedList;
+	}
+
+	private List<List<Signal>> SortSignalByDatatype(List<Integer> datatypes, List<List<Signal>> optimizedList) {
+		List<List<Signal>> list = new ArrayList<List<Signal>>();
+		for(List<Signal> signals : optimizedList) {
+			list.addAll(SplitListByDatatype(signals, datatypes));
+		}
+		return list;
+	}
+
+	private List<List<Signal>> SplitListByDatatype(List<Signal> signals, List<Integer> datatypes) {
+		List<List<Signal>> list = new ArrayList<List<Signal>>();
+		for(Integer datatype : datatypes) {
+			List<Signal> similarDatatypes = new ArrayList<Signal>();
+			for(Signal signal : signals) {
+				if(signal.GetDatatype() == datatype) {
+					similarDatatypes.add(signal);
+				}
+			}
+			list.add(similarDatatypes);
+		}
+		return list;
+	}
+
+	private List<Integer> GetDatatypes(List<Signal> signals) {
+		List<Integer> datatypes = new ArrayList<Integer>();
+		for(Signal signal : signals) {
+			if(!datatypes.contains(signal.GetDatatype())) {
+				datatypes.add(signal.GetDatatype());
+			}
+		}
+		return datatypes;
 	}
 
 	private List<List<Signal>> SortSignalsByOffset(List<List<Signal>> optimizedList, int maxOverhead) {

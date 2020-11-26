@@ -7,13 +7,15 @@ public class Signal {
 	private int datablock;
 	private int offset;
 	private int size;
+	private int datatype;
 	
-	public Signal(String name, String address, int datablock, int offset, int size) {
+	public Signal(String name, String address, int datablock, int offset, int size, int datatype) {
 		this.name = name;
 		this.address = address;
 		this.datablock = datablock;
 		this.offset = offset;
 		this.size = size;
+		this.datatype = datatype;
 	}
 	
 	public String GetAddress() {
@@ -26,6 +28,10 @@ public class Signal {
 	
 	public int GetOffset() {
 		return this.offset;
+	}
+	
+	public int GetDatatype() {
+		return this.datatype;
 	}
 
 }
