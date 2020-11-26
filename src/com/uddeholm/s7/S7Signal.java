@@ -1,6 +1,6 @@
-package com.uddeholm;
+package com.uddeholm.s7;
 
-public class Signal implements Comparable<Signal>{
+public class S7Signal implements Comparable<S7Signal>{
 	
 	private String name;
 	private String address; //ie DB63.DBD0:REAL[4]
@@ -10,7 +10,7 @@ public class Signal implements Comparable<Signal>{
 	private S7Datatypes datatype;
 	private S7MemoryAreas memoryArea;
 	
-	public Signal(String name, String address, int datablock, int offset, int size, S7Datatypes datatype, S7MemoryAreas memoryArea) {
+	public S7Signal(String name, String address, int datablock, int offset, int size, S7Datatypes datatype, S7MemoryAreas memoryArea) {
 		this.name = name;
 		this.address = address;
 		this.datablock = datablock;
@@ -85,7 +85,7 @@ public class Signal implements Comparable<Signal>{
 	}
 
 	@Override
-	public int compareTo(Signal o) {
+	public int compareTo(S7Signal o) {
 		if(this.offset > o.GetOffset()) {
 			return 1;
 		}
