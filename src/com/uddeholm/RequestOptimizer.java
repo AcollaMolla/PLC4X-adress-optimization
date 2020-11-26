@@ -2,6 +2,7 @@ package com.uddeholm;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class RequestOptimizer {
@@ -13,19 +14,6 @@ public class RequestOptimizer {
 			requests.add(CreatePlc4xReadRequestItem(signals));
 		}
 		return requests;
-	}
-	
-	private String CreatePlc4xReadRequestItem(List<Signal> signals) {
-		String request;
-		int firstOffset = signals.get(0).GetOffset();
-		int lastOffset = signals.get(signals.size()-1).GetOffset();
-		String datatype = signals.get(0).GetStringDatatype();
-		int length = (signals.get(signals.size()-1).GetOffset()) - (signals.get(0).GetOffset());
-		length = (length/signals.get(0).GetSize()) + 1;
-		
-		request = signals.get(0).GetStringMemoryArea() + String.valueOf(signals.get(0).GetDatablock()) + "." + signals.get(0).GetDataTypeShortCode() + String.valueOf(signals.get(0).GetOffset());
-		request += ":" + datatype + "[" + length + "]";
-		return "%" + request;
 	}
 
 	public List<List<Signal>> CreateOptimizedSignalList(List<Signal> signals, Integer signalOverhead) {
@@ -42,6 +30,19 @@ public class RequestOptimizer {
 		optimizedList = SortSignalsByOffset(optimizedList, overhead);
 		optimizedList = SortSignalsByIncreasingOffset(optimizedList);
 		return optimizedList;
+	}
+
+	private String CreatePlc4xReadRequestItem(List<Signal> signals) {
+		String request;
+		int firstOffset = signals.get(0).GetOffset();
+		int lastOffset = signals.get(signals.size()-1).GetOffset();
+		String datatype = signals.get(0).GetStringDatatype();
+		int length = (signals.get(signals.size()-1).GetOffset()) - (signals.get(0).GetOffset());
+		length = (length/signals.get(0).GetSize()) + 1;
+		
+		request = signals.get(0).GetStringMemoryArea() + String.valueOf(signals.get(0).GetDatablock()) + "." + signals.get(0).GetDataTypeShortCode() + String.valueOf(signals.get(0).GetOffset());
+		request += ":" + datatype + "[" + length + "]";
+		return "%" + request;
 	}
 
 	private List<List<Signal>> SortSignalsByIncreasingOffset(List<List<Signal>> optimizedList) {

@@ -12,8 +12,9 @@ public class Main {
 		
 		Signal m1 = new Signal("signal1", "DB63.DBD0:REAL[4]", 63, 0, 4, S7Datatypes.REAL, S7MemoryAreas.DB);
 		Signal m2 = new Signal("signal2", "DB63.DBD4:REAL[4]", 63, 4, 4, S7Datatypes.REAL, S7MemoryAreas.DB);
-		Signal m9 = new Signal("signal9", "DB63.DBW8:INT[4]", 63, 8, 4, S7Datatypes.INT, S7MemoryAreas.DB);
-		Signal m10 = new Signal("signal10", "DB63.DBW10:INT[4]", 63, 12, 4, S7Datatypes.INT, S7MemoryAreas.DB);
+		Signal m9 = new Signal("signal9", "DB63.DBW8:INT[1]", 63, 8, 4, S7Datatypes.INT, S7MemoryAreas.DB);
+		Signal m10 = new Signal("signal10", "DB63.DBW10:INT[1]", 63, 12, 4, S7Datatypes.INT, S7MemoryAreas.DB);
+		Signal m11 = new Signal("signal11", "DB63.DBW10:INT[1]", 63, 12, 4, S7Datatypes.INT, S7MemoryAreas.DB);
 		Signal m3 = new Signal("signal3", "DB63.DBD20:REAL[4]", 63, 20, 4, S7Datatypes.REAL, S7MemoryAreas.DB);
 		Signal m8 = new Signal("signal8", "DB63.DBD24:REAL[4]", 63, 24, 4, S7Datatypes.REAL, S7MemoryAreas.DB);
 		Signal m7 = new Signal("signal7", "DB63.DBD12:REAL[4]", 63, 12, 4, S7Datatypes.REAL, S7MemoryAreas.DB);
@@ -31,6 +32,7 @@ public class Main {
 		signals.add(m6);
 		signals.add(m7);
 		signals.add(m10);
+		signals.add(m11);
 		
 		RequestOptimizer optimizer = new RequestOptimizer();
 		optimizedList = optimizer.CreateOptimizedSignalList(signals, 4);
