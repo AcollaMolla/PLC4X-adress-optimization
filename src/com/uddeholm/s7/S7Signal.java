@@ -3,6 +3,7 @@ package com.uddeholm.s7;
 public class S7Signal implements Comparable<S7Signal>{
 	
 	private String name;
+	private Object value;
 	private String address; //ie DB63.DBD0:REAL[4]
 	private int datablock;
 	private int offset;
@@ -18,6 +19,14 @@ public class S7Signal implements Comparable<S7Signal>{
 		this.size = size;
 		this.datatype = datatype;
 		this.memoryArea = memoryArea;
+	}
+	
+	public void SetValue(Object value) {
+		this.value = value;
+	}
+	
+	public Object GetValue() {
+		return this.value;
 	}
 	
 	public String GetAddress() {
