@@ -25,7 +25,7 @@ public class RequestOptimizer {
 		
 		request = signals.get(0).GetStringMemoryArea() + String.valueOf(signals.get(0).GetDatablock()) + "." + signals.get(0).GetDataTypeShortCode() + String.valueOf(signals.get(0).GetOffset());
 		request += ":" + datatype + "[" + length + "]";
-		return request;
+		return "%" + request;
 	}
 
 	public List<List<Signal>> CreateOptimizedSignalList(List<Signal> signals, Integer signalOverhead) {
