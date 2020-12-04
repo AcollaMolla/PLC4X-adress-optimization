@@ -18,14 +18,12 @@ public class S7RequestOptimizer {
 		return requests;
 	}
 
-	public List<List<S7Signal>> CreateOptimizedS7SignalList(List<String> signalsAsString, Integer signalOverhead) {
-		List<S7Signal> signals = new ArrayList<S7Signal>();
+	public List<List<S7Signal>> CreateOptimizedS7SignalList(List<S7Signal> signals, Integer signalOverhead) {
 		List<List<S7Signal>> optimizedList;
 		List<Integer> datablocks;
 		List<S7Datatypes> datatypes;
 		int overhead = signalOverhead != null ? signalOverhead : 4;
 		
-		signals = StringsToSignals(signalsAsString);
 		datablocks = GetDatablocks(signals);
 		datatypes = GetDatatypes(signals);
 		
@@ -34,30 +32,6 @@ public class S7RequestOptimizer {
 		optimizedList = SortS7SignalsByOffset(optimizedList, overhead);
 		optimizedList = SortS7SignalsByIncreasingOffset(optimizedList);
 		return optimizedList;
-	}
-
-	private List<S7Signal> StringsToSignals(List<String> signalsAsString) {
-		for(String signalAsString : signalsAsString) {
-			S7Signal signal = StringToSignal(signalAsString);
-		}
-		return null;
-	}
-
-	private S7Signal StringToSignal(String signalAsString) {
-		String address = signalAsString;
-		int datablock = ParseDatablock(signalAsString);
-		return null;
-	}
-
-	private int ParseDatablock(String signalAsString) {
-		int datablock = -1;
-		Pattern pattern = Pattern.compile("\\d{2}", Pattern.CASE_INSENSITIVE);
-		Matcher matcher = pattern.matcher(signalAsString);
-		if(matcher.find()) {
-			String s = matcher.group();
-			datablock = Integer.parseInt(s);
-		}
-		return datablock;
 	}
 
 	private String CreatePlc4xReadRequestItem(List<S7Signal> signals) {
