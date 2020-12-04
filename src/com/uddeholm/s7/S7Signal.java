@@ -7,6 +7,7 @@ public class S7Signal implements Comparable<S7Signal>{
 	private String address; //ie DB63.DBD0:REAL[4]
 	private int datablock;
 	private int offset;
+	private int bitoffset;
 	private int size;
 	private S7Datatypes datatype;
 	private S7MemoryAreas memoryArea;
@@ -16,6 +17,18 @@ public class S7Signal implements Comparable<S7Signal>{
 		this.address = address;
 		this.datablock = datablock;
 		this.offset = offset;
+		this.bitoffset = 0;
+		this.size = size;
+		this.datatype = datatype;
+		this.memoryArea = memoryArea;
+	}
+	
+	public S7Signal(String name, String address, int datablock, int offset, int bitoffset, int size, S7Datatypes datatype, S7MemoryAreas memoryArea) {
+		this.name = name;
+		this.address = address;
+		this.datablock = datablock;
+		this.offset = offset;
+		this.bitoffset = bitoffset;
 		this.size = size;
 		this.datatype = datatype;
 		this.memoryArea = memoryArea;

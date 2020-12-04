@@ -18,7 +18,8 @@ public class S7RequestOptimizer {
 		return requests;
 	}
 
-	public List<List<S7Signal>> CreateOptimizedS7SignalList(List<S7Signal> signals, Integer signalOverhead) {
+	public SignalTree CreateOptimizedS7SignalList(List<S7Signal> signals, Integer signalOverhead) {
+		SignalTree signalTree = new SignalTree();
 		List<List<S7Signal>> optimizedList;
 		List<Integer> datablocks;
 		List<S7Datatypes> datatypes;
@@ -31,7 +32,13 @@ public class S7RequestOptimizer {
 		optimizedList = SortS7SignalByDatatype(datatypes, optimizedList);
 		optimizedList = SortS7SignalsByOffset(optimizedList, overhead);
 		optimizedList = SortS7SignalsByIncreasingOffset(optimizedList);
-		return optimizedList;
+		
+		for(List<S7Signal> signalsInList: optimizedList) {
+			S7Signals s = new S7Signals();
+			s.AddSignals(signalsInList);
+			signalTree.AddSignalsToTree(s);
+		}
+		return signalTree;
 	}
 
 	private String CreatePlc4xReadRequestItem(List<S7Signal> signals) {
