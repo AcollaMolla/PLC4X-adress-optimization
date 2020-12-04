@@ -16,12 +16,14 @@ public class S7RequestOptimizer {
 		return requests;
 	}
 
-	public List<List<S7Signal>> CreateOptimizedS7SignalList(List<S7Signal> signals, Integer signalOverhead) {
+	public List<List<S7Signal>> CreateOptimizedS7SignalList(List<String> signalsAsString, Integer signalOverhead) {
+		List<S7Signal> signals = new ArrayList<S7Signal>();
 		List<List<S7Signal>> optimizedList;
 		List<Integer> datablocks;
 		List<S7Datatypes> datatypes;
 		int overhead = signalOverhead != null ? signalOverhead : 4;
 		
+		signals = StringsToSignals(signalsAsString);
 		datablocks = GetDatablocks(signals);
 		datatypes = GetDatatypes(signals);
 		
@@ -30,6 +32,18 @@ public class S7RequestOptimizer {
 		optimizedList = SortS7SignalsByOffset(optimizedList, overhead);
 		optimizedList = SortS7SignalsByIncreasingOffset(optimizedList);
 		return optimizedList;
+	}
+
+	private List<S7Signal> StringsToSignals(List<String> signalsAsString) {
+		for(String signalAsString : signalsAsString) {
+			S7Signal signal = StringToSignal(signalAsString);
+		}
+		return null;
+	}
+
+	private S7Signal StringToSignal(String signalAsString) {
+		
+		return null;
 	}
 
 	private String CreatePlc4xReadRequestItem(List<S7Signal> signals) {

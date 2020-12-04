@@ -15,8 +15,14 @@ public class Main {
 		List<S7Signal> signals = new ArrayList<S7Signal>();
 		List<List<S7Signal>> optimizedList;
 		
-		S7Signal m1 = new S7Signal("signal1", "DB63.DBD0:REAL[4]", 63, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m2 = new S7Signal("signal2", "DB63.DBD4:REAL[4]", 63, 4, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		List<String> signalsAsString = new ArrayList<String>();
+		List<List<String>> optimizedListAsString = new ArrayList<List<String>>();
+		
+		String s1 = "DB63.DBD0:REAL";
+		signalsAsString.add(s1);
+		
+		S7Signal m1 = new S7Signal("DB63.DBD0:REAL", 11, 24, 4, S7Datatypes.valueOf("REAL"), S7MemoryAreas.valueOf("DB"));
+		/*S7Signal m2 = new S7Signal("signal2", "DB63.DBD4:REAL[4]", 63, 4, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
 		S7Signal m9 = new S7Signal("signal9", "DB63.DBW8:INT[1]", 63, 8, 1, S7Datatypes.INT, S7MemoryAreas.DB);
 		S7Signal m10 = new S7Signal("signal10", "DB63.DBW12:INT[1]", 63, 12, 1, S7Datatypes.INT, S7MemoryAreas.DB);
 		S7Signal m3 = new S7Signal("signal3", "DB63.DBD20:REAL[4]", 63, 20, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
@@ -24,9 +30,10 @@ public class Main {
 		S7Signal m7 = new S7Signal("signal7", "DB63.DBD12:REAL[4]", 63, 12, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
 		S7Signal m4 = new S7Signal("signal4", "DB80.DBD0:REAL[4]", 80, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
 		S7Signal m5 = new S7Signal("signal5", "DB80.DBD16:REAL[4]", 80, 16, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m6 = new S7Signal("signal6", "DB60.DBD0:REAL[4]", 60, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		S7Signal m6 = new S7Signal("signal6", "DB60.DBD0:REAL[4]", 60, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);*/
 		
-		signals.add(m9);
+		signals.add(m1);
+		/*signals.add(m9);
 		signals.add(m8);
 		signals.add(m3);
 		signals.add(m1);
@@ -35,10 +42,10 @@ public class Main {
 		signals.add(m5);
 		signals.add(m6);
 		signals.add(m7);
-		signals.add(m10);
+		signals.add(m10);*/
 		
 		S7RequestOptimizer optimizer = new S7RequestOptimizer();
-		optimizedList = optimizer.CreateOptimizedS7SignalList(signals, 4);
+		optimizedList = optimizer.CreateOptimizedS7SignalList(signalsAsString, 4);
 		List<String> optimizedReadRequest = optimizer.GetOptimizedS7SignalsList(optimizedList);
 		PrintOptimizedList(optimizedList);
 		for(String request : optimizedReadRequest) {
