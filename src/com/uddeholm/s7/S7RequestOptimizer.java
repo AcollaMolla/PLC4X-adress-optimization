@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class S7RequestOptimizer {
 	
@@ -42,8 +44,20 @@ public class S7RequestOptimizer {
 	}
 
 	private S7Signal StringToSignal(String signalAsString) {
-		
+		String address = signalAsString;
+		int datablock = ParseDatablock(signalAsString);
 		return null;
+	}
+
+	private int ParseDatablock(String signalAsString) {
+		int datablock = -1;
+		Pattern pattern = Pattern.compile("\\d{2}", Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(signalAsString);
+		if(matcher.find()) {
+			String s = matcher.group();
+			datablock = Integer.parseInt(s);
+		}
+		return datablock;
 	}
 
 	private String CreatePlc4xReadRequestItem(List<S7Signal> signals) {
