@@ -45,11 +45,11 @@ public class S7RequestOptimizer {
 		String request;
 		int firstOffset = signals.get(0).GetOffset();
 		int lastOffset = signals.get(signals.size()-1).GetOffset();
-		String datatype = signals.get(0).GetStringDatatype();
+		String datatype = signals.get(0).GetStringDatatype(false);
 		int length = (signals.get(signals.size()-1).GetOffset()) - (signals.get(0).GetOffset());
 		length = (length/signals.get(0).GetSize()) + 1;
 		
-		request = signals.get(0).GetStringMemoryArea() + String.valueOf(signals.get(0).GetDatablock()) + "." + signals.get(0).GetDataTypeShortCode() + String.valueOf(signals.get(0).GetOffset());
+		request = signals.get(0).GetStringMemoryArea() + String.valueOf(signals.get(0).GetDatablock()) + "." + signals.get(0).GetDataTypeShortCode(false) + String.valueOf(signals.get(0).GetOffset());
 		request += ":" + datatype + "[" + length + "]";
 		return "%" + request;
 	}

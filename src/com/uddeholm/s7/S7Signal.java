@@ -58,16 +58,21 @@ public class S7Signal implements Comparable<S7Signal>{
 		return this.datatype;
 	}
 	
-	public String GetStringDatatype() {
-		switch(this.datatype) {
-		case REAL:
-			return "REAL";
-		case INT:
-			return "INT";
-		case BOOL:
+	public String GetStringDatatype(boolean asByte) {
+		if(asByte) {
 			return "BYTE";
-		default:
-			return "REAL";
+		}
+		else {
+			switch(this.datatype) {
+			case REAL:
+				return "REAL";
+			case INT:
+				return "INT";
+			case BOOL:
+				return "BYTE";
+			default:
+				return "REAL";
+			}	
 		}
 	}
 	
@@ -80,16 +85,21 @@ public class S7Signal implements Comparable<S7Signal>{
 		}
 	}
 	
-	public String GetDataTypeShortCode() {
-		switch(this.datatype) {
-		case REAL:
-			return "DBD";
-		case BOOL:
+	public String GetDataTypeShortCode(boolean asByte) {
+		if(asByte) {
 			return "DBB";
-		case INT:
-			return "DBW";
-		default:
-			return "DBB";
+		}
+		else {
+			switch(this.datatype) {
+			case REAL:
+				return "DBD";
+			case BOOL:
+				return "DBB";
+			case INT:
+				return "DBW";
+			default:
+				return "DBB";
+			}	
 		}
 	}
 	

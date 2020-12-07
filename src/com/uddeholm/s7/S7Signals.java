@@ -8,6 +8,7 @@ public class S7Signals {
 	private List<S7Signal> signals;
 	private S7Signal firstSignal;
 	private S7Signal lastSignal;
+	private String address;
 	
 	public S7Signals() {
 		this.signals = new ArrayList<S7Signal>();
@@ -17,6 +18,7 @@ public class S7Signals {
 		for(S7Signal signal : signals) {
 			this.AddSignal(signal);
 		}
+		this.address = this.SetAddress(this.GetFirstSignal());
 	}
 	
 	public List<S7Signal> GetSignals(){
@@ -41,6 +43,10 @@ public class S7Signals {
 		return size;
 	}
 	
+	public String GetAddress() {
+		return this.address;
+	}
+	
 	private void AddSignal(S7Signal signal) {
 		if(this.firstSignal == null || signal.GetOffset() < this.firstSignal.GetOffset()) {
 			this.firstSignal = signal;
@@ -49,6 +55,12 @@ public class S7Signals {
 			this.lastSignal = signal;
 		}
 		this.signals.add(signal);
+	}
+	
+	private String SetAddress(S7Signal base) {
+		String address;
+		address = base.GetStringMemoryArea() + base.GetDatablock() + "." + base.GetDataTypeShortCode(true) + base.GetOffset() + ":" + base.GetStringDatatype(true) + "[" + this.GetAddressSize() + "]";
+		return address;
 	}
 
 }

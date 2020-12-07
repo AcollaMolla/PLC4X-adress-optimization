@@ -36,7 +36,7 @@ public class SignalTree {
 	
 	public void Print() {
 		for(S7Signals signals : this.signalTree) {
-			System.out.println(signals.GetFirstSignal().GetAddress() + "[" + signals.GetAddressSize() + "]");
+			System.out.println(signals.GetAddress());
 		}
 	}
 
