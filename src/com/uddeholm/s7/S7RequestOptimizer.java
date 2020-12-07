@@ -39,7 +39,6 @@ public class S7RequestOptimizer {
 		datatypes = GetDatatypes(signals);
 		
 		optimizedList = SortS7SignalsByDatablock(datablocks, signals);
-		optimizedList = SortS7SignalByDatatype(datatypes, optimizedList);
 		optimizedList = SortS7SignalsByOffset(optimizedList, overhead);
 		optimizedList = SortS7SignalsByIncreasingOffset(optimizedList);
 		
@@ -67,28 +66,6 @@ public class S7RequestOptimizer {
 			Collections.sort(signals);
 		}
 		return optimizedList;
-	}
-
-	private static List<List<S7Signal>> SortS7SignalByDatatype(List<S7Datatypes> datatypes, List<List<S7Signal>> optimizedList) {
-		List<List<S7Signal>> list = new ArrayList<List<S7Signal>>();
-		for(List<S7Signal> signals : optimizedList) {
-			list.addAll(SplitListByDatatype(signals, datatypes));
-		}
-		return list;
-	}
-
-	private static List<List<S7Signal>> SplitListByDatatype(List<S7Signal> signals, List<S7Datatypes> datatypes) {
-		List<List<S7Signal>> list = new ArrayList<List<S7Signal>>();
-		for(S7Datatypes datatype : datatypes) {
-			List<S7Signal> similarDatatypes = new ArrayList<S7Signal>();
-			for(S7Signal signal : signals) {
-				if(signal.GetDatatype() == datatype) {
-					similarDatatypes.add(signal);
-				}
-			}
-			list.add(similarDatatypes);
-		}
-		return list;
 	}
 
 	private static List<S7Datatypes> GetDatatypes(List<S7Signal> signals) {
