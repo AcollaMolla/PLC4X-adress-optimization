@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 public class S7RequestOptimizer {
 	
 	public List<String> GetOptimizedS7SignalsList(List<List<S7Signal>> optimizedList){
-		String request;
 		List<String> requests = new ArrayList<String>();
 		for(List<S7Signal> signals : optimizedList) {
 			requests.add(CreatePlc4xReadRequestItem(signals));
@@ -18,12 +17,15 @@ public class S7RequestOptimizer {
 		return requests;
 	}
 
-	public SignalTree CreateOptimizedS7SignalList(List<S7Signal> signals, Integer signalOverhead) {
+	public static SignalTree CreateOptimizedS7SignalList(List<S7Signal> signals, Integer signalOverhead) {
 		SignalTree signalTree = new SignalTree();
 		List<List<S7Signal>> optimizedList;
 		List<Integer> datablocks;
 		List<S7Datatypes> datatypes;
-		int overhead = signalOverhead != null ? signalOverhead : 4;
+		int overhead = 4;
+		if(signalOverhead != null && signalOverhead > 0) {
+			overhead = signalOverhead;
+		}
 		
 		datablocks = GetDatablocks(signals);
 		datatypes = GetDatatypes(signals);
@@ -43,8 +45,6 @@ public class S7RequestOptimizer {
 
 	private String CreatePlc4xReadRequestItem(List<S7Signal> signals) {
 		String request;
-		int firstOffset = signals.get(0).GetOffset();
-		int lastOffset = signals.get(signals.size()-1).GetOffset();
 		String datatype = signals.get(0).GetStringDatatype(false);
 		int length = (signals.get(signals.size()-1).GetOffset()) - (signals.get(0).GetOffset());
 		length = (length/signals.get(0).GetSize()) + 1;
@@ -54,14 +54,14 @@ public class S7RequestOptimizer {
 		return "%" + request;
 	}
 
-	private List<List<S7Signal>> SortS7SignalsByIncreasingOffset(List<List<S7Signal>> optimizedList) {
+	private static List<List<S7Signal>> SortS7SignalsByIncreasingOffset(List<List<S7Signal>> optimizedList) {
 		for(List<S7Signal> signals : optimizedList) {
 			Collections.sort(signals);
 		}
 		return optimizedList;
 	}
 
-	private List<List<S7Signal>> SortS7SignalByDatatype(List<S7Datatypes> datatypes, List<List<S7Signal>> optimizedList) {
+	private static List<List<S7Signal>> SortS7SignalByDatatype(List<S7Datatypes> datatypes, List<List<S7Signal>> optimizedList) {
 		List<List<S7Signal>> list = new ArrayList<List<S7Signal>>();
 		for(List<S7Signal> signals : optimizedList) {
 			list.addAll(SplitListByDatatype(signals, datatypes));
@@ -69,7 +69,7 @@ public class S7RequestOptimizer {
 		return list;
 	}
 
-	private List<List<S7Signal>> SplitListByDatatype(List<S7Signal> signals, List<S7Datatypes> datatypes) {
+	private static List<List<S7Signal>> SplitListByDatatype(List<S7Signal> signals, List<S7Datatypes> datatypes) {
 		List<List<S7Signal>> list = new ArrayList<List<S7Signal>>();
 		for(S7Datatypes datatype : datatypes) {
 			List<S7Signal> similarDatatypes = new ArrayList<S7Signal>();
@@ -83,7 +83,7 @@ public class S7RequestOptimizer {
 		return list;
 	}
 
-	private List<S7Datatypes> GetDatatypes(List<S7Signal> signals) {
+	private static List<S7Datatypes> GetDatatypes(List<S7Signal> signals) {
 		List<S7Datatypes> datatypes = new ArrayList<S7Datatypes>();
 		for(S7Signal signal : signals) {
 			if(!datatypes.contains(signal.GetDatatype())) {
@@ -93,7 +93,7 @@ public class S7RequestOptimizer {
 		return datatypes;
 	}
 
-	private List<List<S7Signal>> SortS7SignalsByOffset(List<List<S7Signal>> optimizedList, int maxOverhead) {
+	private static List<List<S7Signal>> SortS7SignalsByOffset(List<List<S7Signal>> optimizedList, int maxOverhead) {
 		List<List<S7Signal>> list = new ArrayList<List<S7Signal>>();
 		for(List<S7Signal> machines : optimizedList) {
 			list.addAll(SplitS7SignalsByOffset(machines, maxOverhead));
@@ -101,10 +101,9 @@ public class S7RequestOptimizer {
 		return list;
 	}
 
-	private List<List<S7Signal>> SplitS7SignalsByOffset(List<S7Signal> machines, int maxOverhead) {
+	private static List<List<S7Signal>> SplitS7SignalsByOffset(List<S7Signal> machines, int maxOverhead) {
 		List<List<S7Signal>> optimizedSubList = new ArrayList<List<S7Signal>>();
 		List<S7Signal> list = new ArrayList<S7Signal>();
-		List<S7Signal> temp;
 		
 		for(int i=0;i<machines.size();i++) {
 			if(i == 0) {
@@ -127,12 +126,12 @@ public class S7RequestOptimizer {
 		return optimizedSubList;
 	}
 
-	private S7Signal GetLastItem(List<S7Signal> list) {
+	private static S7Signal GetLastItem(List<S7Signal> list) {
 		S7Signal lastItem = list.get(list.size()-1);
 		return lastItem;
 	}
 
-	private List<List<S7Signal>> SortS7SignalsByDatablock(List<Integer> datablocks, List<S7Signal> machines) {
+	private static List<List<S7Signal>> SortS7SignalsByDatablock(List<Integer> datablocks, List<S7Signal> machines) {
 		List<List<S7Signal>> optimizedList = new ArrayList<List<S7Signal>>();
 		for(int datablock : datablocks) {
 			List<S7Signal> list = new ArrayList<S7Signal>();
@@ -146,7 +145,7 @@ public class S7RequestOptimizer {
 		return optimizedList;
 	}
 
-	private List<Integer> GetDatablocks(List<S7Signal> machines) {
+	private static List<Integer> GetDatablocks(List<S7Signal> machines) {
 		List<Integer> datablocks = new ArrayList<Integer>();
 		for(S7Signal machine : machines) {
 			if(!datablocks.contains(machine.GetDatablock())) {

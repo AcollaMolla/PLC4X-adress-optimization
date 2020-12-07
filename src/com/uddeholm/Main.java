@@ -39,8 +39,9 @@ public class Main {
 		signals.add(m7);
 		signals.add(m10);
 		
-		S7RequestOptimizer optimizer = new S7RequestOptimizer();
-		signalTree = optimizer.CreateOptimizedS7SignalList(signals, 4);
+		//S7RequestOptimizer optimizer = new S7RequestOptimizer();
+		//signalTree = optimizer.CreateOptimizedS7SignalList(signals, 4);
+		signalTree = S7RequestOptimizer.CreateOptimizedS7SignalList(signals, 4);
 		
 		signalTree.Print();
 	}
