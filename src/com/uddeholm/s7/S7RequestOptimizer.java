@@ -16,16 +16,24 @@ public class S7RequestOptimizer {
 		}
 		return requests;
 	}
+	
+	public static SignalTree CreateOptimizedS7SignalList(List<S7Signal> signals) {
+		return CreateOptimized(signals, 4);
+	}
 
-	public static SignalTree CreateOptimizedS7SignalList(List<S7Signal> signals, Integer signalOverhead) {
+	public static SignalTree CreateOptimizedS7SignalList(List<S7Signal> signals, int signalOverhead) {
+		int overhead = 4;
+		if(signalOverhead > 0) {
+			overhead = signalOverhead;
+		}
+		return CreateOptimized(signals, overhead);
+	}
+	
+	private static SignalTree CreateOptimized(List<S7Signal> signals, int overhead) {
 		SignalTree signalTree = new SignalTree();
 		List<List<S7Signal>> optimizedList;
 		List<Integer> datablocks;
 		List<S7Datatypes> datatypes;
-		int overhead = 4;
-		if(signalOverhead != null && signalOverhead > 0) {
-			overhead = signalOverhead;
-		}
 		
 		datablocks = GetDatablocks(signals);
 		datatypes = GetDatatypes(signals);
