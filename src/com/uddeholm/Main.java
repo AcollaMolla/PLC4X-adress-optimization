@@ -16,16 +16,16 @@ public class Main {
 		List<S7Signal> signals = new ArrayList<S7Signal>();
 		SignalTree signalTree;
 		
-		S7Signal m1 = new S7Signal("signal1", "DB63.DBD0:REAL", 63, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m2 = new S7Signal("signal2", "DB63.DBD4:REAL", 63, 4, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m3 = new S7Signal("signal3", "DB63.DBD20:REAL", 63, 20, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m4 = new S7Signal("signal4", "DB80.DBD0:REAL", 80, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m5 = new S7Signal("signal5", "DB80.DBD16:REAL", 80, 16, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m6 = new S7Signal("signal6", "DB60.DBD0:REAL", 60, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m7 = new S7Signal("signal7", "DB63.DBD12:REAL", 63, 12, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m8 = new S7Signal("signal8", "DB63.DBD24:REAL", 63, 24, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
-		S7Signal m9 = new S7Signal("signal9", "DB63.DBW8:INT", 63, 8, 1, S7Datatypes.INT, S7MemoryAreas.DB);
-		S7Signal m10 = new S7Signal("signal10", "DB63.DBW12:INT", 63, 12, 1, S7Datatypes.INT, S7MemoryAreas.DB);
+		S7Signal m1 = new S7Signal("signal1", 63, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		S7Signal m2 = new S7Signal("signal2", 63, 4, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		S7Signal m3 = new S7Signal("signal3", 63, 20, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		S7Signal m4 = new S7Signal("signal4", 80, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		S7Signal m5 = new S7Signal("signal5", 80, 16, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		S7Signal m6 = new S7Signal("signal6", 60, 0, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		S7Signal m7 = new S7Signal("signal7", 63, 12, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		S7Signal m8 = new S7Signal("signal8", 63, 24, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
+		S7Signal m9 = new S7Signal("signal9", 63, 8, 1, S7Datatypes.INT, S7MemoryAreas.DB);
+		S7Signal m10 = new S7Signal("signal10", 63, 12, 1, S7Datatypes.INT, S7MemoryAreas.DB);
 
 		
 		signals.add(m9);
