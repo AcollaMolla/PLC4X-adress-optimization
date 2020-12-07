@@ -31,6 +31,10 @@ public class S7Signal implements Comparable<S7Signal>{
 		this.memoryArea = memoryArea;
 	}
 	
+	public String GetName() {
+		return this.name;
+	}
+	
 	public void SetValue(Object value) {
 		this.value = value;
 	}
@@ -45,6 +49,10 @@ public class S7Signal implements Comparable<S7Signal>{
 	
 	public int GetOffset() {
 		return this.offset;
+	}
+	
+	public int GetBitoffset() {
+		return this.bitoffset;
 	}
 	
 	public S7Datatypes GetDatatype() {
