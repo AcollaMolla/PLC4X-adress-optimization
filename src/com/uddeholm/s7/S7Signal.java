@@ -8,8 +8,9 @@ public class S7Signal implements Comparable<S7Signal>{
 	private int offset;
 	private int bitoffset;
 	private int size;
-	private S7Datatypes datatype;
+	private S7Datatypes nativeDatatype;
 	private S7MemoryAreas memoryArea;
+	private String datatype;
 	
 	public S7Signal(String name, int datablock, int offset, int size, S7Datatypes datatype, S7MemoryAreas memoryArea) {
 		this.name = name;
@@ -17,8 +18,9 @@ public class S7Signal implements Comparable<S7Signal>{
 		this.offset = offset;
 		this.bitoffset = 0;
 		this.size = size;
-		this.datatype = datatype;
+		this.nativeDatatype = datatype;
 		this.memoryArea = memoryArea;
+		this.datatype = SetDatatype();
 	}
 	
 	public S7Signal(String name, int datablock, int offset, int bitoffset, int size, S7Datatypes datatype, S7MemoryAreas memoryArea) {
@@ -27,8 +29,9 @@ public class S7Signal implements Comparable<S7Signal>{
 		this.offset = offset;
 		this.bitoffset = bitoffset;
 		this.size = size;
-		this.datatype = datatype;
+		this.nativeDatatype = datatype;
 		this.memoryArea = memoryArea;
+		this.datatype = SetDatatype();
 	}
 	
 	public String GetName() {
@@ -55,16 +58,16 @@ public class S7Signal implements Comparable<S7Signal>{
 		return this.bitoffset;
 	}
 	
-	public S7Datatypes GetDatatype() {
-		return this.datatype;
+	public S7Datatypes GetNativeDatatype() {
+		return this.nativeDatatype;
 	}
 	
-	public String GetStringDatatype(boolean asByte) {
+	public String GetNativeDatatype(boolean asByte) {
 		if(asByte) {
 			return "BYTE";
 		}
 		else {
-			switch(this.datatype) {
+			switch(this.nativeDatatype) {
 			case REAL:
 				return "REAL";
 			case INT:
@@ -91,7 +94,7 @@ public class S7Signal implements Comparable<S7Signal>{
 			return "DBB";
 		}
 		else {
-			switch(this.datatype) {
+			switch(this.nativeDatatype) {
 			case REAL:
 				return "DBD";
 			case BOOL:
@@ -105,7 +108,7 @@ public class S7Signal implements Comparable<S7Signal>{
 	}
 	
 	public int GetSize() {
-		switch(this.datatype) {
+		switch(this.nativeDatatype) {
 		case REAL:
 			return 4;
 		case INT:
@@ -129,6 +132,21 @@ public class S7Signal implements Comparable<S7Signal>{
 
 	public String GetAddress() {
 		return "TODO";
+	}
+	
+	private String SetDatatype() {
+		switch(this.nativeDatatype) {
+		case REAL:
+			return "float";
+		case INT:
+			return "int";
+		case TIME:
+			return "long";
+		case BOOL:
+			return "bool";
+		default:
+			return "int";
+		}
 	}
 
 }

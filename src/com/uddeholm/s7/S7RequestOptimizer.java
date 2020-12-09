@@ -52,7 +52,7 @@ public class S7RequestOptimizer {
 
 	private String CreatePlc4xReadRequestItem(List<S7Signal> signals) {
 		String request;
-		String datatype = signals.get(0).GetStringDatatype(false);
+		String datatype = signals.get(0).GetNativeDatatype(false);
 		int length = (signals.get(signals.size()-1).GetOffset()) - (signals.get(0).GetOffset());
 		length = (length/signals.get(0).GetSize()) + 1;
 		
@@ -71,8 +71,8 @@ public class S7RequestOptimizer {
 	private static List<S7Datatypes> GetDatatypes(List<S7Signal> signals) {
 		List<S7Datatypes> datatypes = new ArrayList<S7Datatypes>();
 		for(S7Signal signal : signals) {
-			if(!datatypes.contains(signal.GetDatatype())) {
-				datatypes.add(signal.GetDatatype());
+			if(!datatypes.contains(signal.GetNativeDatatype())) {
+				datatypes.add(signal.GetNativeDatatype());
 			}
 		}
 		return datatypes;
