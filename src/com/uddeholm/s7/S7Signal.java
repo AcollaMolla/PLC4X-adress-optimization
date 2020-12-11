@@ -62,6 +62,10 @@ public class S7Signal implements Comparable<S7Signal>{
 		return this.nativeDatatype;
 	}
 	
+	public String GetDatatype() {
+		return this.datatype;
+	}
+	
 	public String GetNativeDatatype(boolean asByte) {
 		if(asByte) {
 			return "BYTE";
