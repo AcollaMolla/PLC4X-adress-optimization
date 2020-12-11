@@ -149,9 +149,9 @@ public class S7Signal implements Comparable<S7Signal>{
 		case INT:
 			return "int";
 		case TIME:
-			return "long";
+			return "int";
 		case BOOL:
-			return "bool";
+			return "boolean";
 		default:
 			return "int";
 		}
