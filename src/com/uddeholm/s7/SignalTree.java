@@ -20,7 +20,7 @@ public class SignalTree {
 	public void AddSignalsToTree(S7Signals signals) {
 		this.signalTree.add(signals);
 		this.size++;
-		this.crc32 = GetCrc32();
+		this.crc32 = SetCrc32();
 	}
 	
 	public List<S7Signals> GetSignalTree(){
@@ -45,7 +45,11 @@ public class SignalTree {
 		}
 	}
 	
-	private long GetCrc32() {
+	public long GetCrc32() {
+		return this.crc32;
+	}
+	
+	private long SetCrc32() {
 		StringBuilder sb = new StringBuilder();
 		Checksum checksum = new CRC32();
 		byte[] bytes;
