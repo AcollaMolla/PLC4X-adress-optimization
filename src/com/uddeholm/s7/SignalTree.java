@@ -57,7 +57,7 @@ public class SignalTree {
 		
 		for(S7Signals signals : this.signalTree) {
 			for(S7Signal signal : signals.GetSignals()) {
-				sb.append(signal.GetName() + signal.GetAddress() + signal.GetOffset() + signal.GetBitoffset() + signal.GetMemoeyArea() + signal.GetNativeDatatype(false));
+				sb.append(signal.GetName() + signal.GetAddress() + signal.GetOffset() + signal.GetBitoffset() + signal.GetMemoryAreaAsString() + signal.GetNativeDatatype(false));
 			}
 		}
 		

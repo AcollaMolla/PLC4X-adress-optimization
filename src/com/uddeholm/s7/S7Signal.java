@@ -92,7 +92,7 @@ public class S7Signal implements Comparable<S7Signal>{
 		return this.memoryArea;
 	}
 	
-	public String GetMemoeyArea() {
+	public String GetMemoryAreaAsString() {
 		return this.memoryArea.toString();
 	}
 	

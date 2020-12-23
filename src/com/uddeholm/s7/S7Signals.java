@@ -74,7 +74,7 @@ public class S7Signals {
 	
 	private String SetDbAddress(S7Signal base) {
 		String address;
-		address = base.GetMemoeyArea() + base.GetDatablock() + "." + base.GetDataTypeShortCode(true) + base.GetOffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
+		address = base.GetMemoryAreaAsString() + base.GetDatablock() + "." + base.GetDataTypeShortCode(true) + base.GetOffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
 		return address;
 	}
 	
@@ -92,7 +92,7 @@ public class S7Signals {
 	
 	private String SetSimpleStructureAddress(S7Signal base) {
 		String address;
-		address = base.GetMemoeyArea() + base.GetOffset() + "." + base.GetBitoffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
+		address = base.GetMemoryAreaAsString() + base.GetOffset() + "." + base.GetBitoffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
 		return address;
 	}
 
