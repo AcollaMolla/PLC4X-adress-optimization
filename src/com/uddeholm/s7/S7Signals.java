@@ -92,7 +92,7 @@ public class S7Signals {
 	
 	private String SetSimpleStructureAddress(S7Signal base) {
 		String address;
-		address = base.GetMemoryAreaAsString() + base.GetOffset() + "." + base.GetBitoffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
+		address = base.GetMemoryAreaAsString() + base.GetOffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
 		return address;
 	}
 
