@@ -88,13 +88,12 @@ public class S7Signal implements Comparable<S7Signal>{
 		}
 	}
 	
-	public String GetStringMemoryArea() {
-		switch(this.memoryArea) {
-		case DB:
-			return "DB";
-		default:
-			return "DB";
-		}
+	public S7MemoryAreas GetMemoryArea() {
+		return this.memoryArea;
+	}
+	
+	public String GetMemoeyArea() {
+		return this.memoryArea.toString();
 	}
 	
 	public String GetDataTypeShortCode(boolean asByte) {

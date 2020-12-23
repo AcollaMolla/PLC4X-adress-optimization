@@ -59,7 +59,7 @@ public class S7Signals {
 	
 	private String SetAddress(S7Signal base) {
 		String address;
-		address = base.GetStringMemoryArea() + base.GetDatablock() + "." + base.GetDataTypeShortCode(true) + base.GetOffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
+		address = base.GetMemoeyArea() + base.GetDatablock() + "." + base.GetDataTypeShortCode(true) + base.GetOffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
 		return address;
 	}
 

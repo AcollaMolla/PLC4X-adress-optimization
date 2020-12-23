@@ -33,12 +33,13 @@ public class S7RequestOptimizer {
 		SignalTree signalTree = new SignalTree();
 		List<List<S7Signal>> optimizedList;
 		List<Integer> datablocks;
-		List<S7Datatypes> datatypes;
+		List<S7MemoryAreas> memoryAreas;
 		
+		memoryAreas = GetMemoryAreas(signals);
 		datablocks = GetDatablocks(signals);
-		datatypes = GetDatatypes(signals);
 		
-		optimizedList = SortS7SignalsByDatablock(datablocks, signals);
+		optimizedList = SortS7SignalsByMemoryArea(signals, memoryAreas);
+		optimizedList = SortS7SignalsByDatablock(optimizedList, datablocks);
 		optimizedList = SortS7SignalsByOffset(optimizedList, overhead);
 		optimizedList = SortS7SignalsByIncreasingOffset(optimizedList);
 		
@@ -56,7 +57,7 @@ public class S7RequestOptimizer {
 		int length = (signals.get(signals.size()-1).GetOffset()) - (signals.get(0).GetOffset());
 		length = (length/signals.get(0).GetSize()) + 1;
 		
-		request = signals.get(0).GetStringMemoryArea() + String.valueOf(signals.get(0).GetDatablock()) + "." + signals.get(0).GetDataTypeShortCode(false) + String.valueOf(signals.get(0).GetOffset());
+		request = signals.get(0).GetMemoeyArea() + String.valueOf(signals.get(0).GetDatablock()) + "." + signals.get(0).GetDataTypeShortCode(false) + String.valueOf(signals.get(0).GetOffset());
 		request += ":" + datatype + "[" + length + "]";
 		return "%" + request;
 	}
@@ -67,7 +68,7 @@ public class S7RequestOptimizer {
 		}
 		return optimizedList;
 	}
-
+	
 	private static List<S7Datatypes> GetDatatypes(List<S7Signal> signals) {
 		List<S7Datatypes> datatypes = new ArrayList<S7Datatypes>();
 		for(S7Signal signal : signals) {
@@ -115,10 +116,28 @@ public class S7RequestOptimizer {
 		S7Signal lastItem = list.get(list.size()-1);
 		return lastItem;
 	}
-
-	private static List<List<S7Signal>> SortS7SignalsByDatablock(List<Integer> datablocks, List<S7Signal> machines) {
+	
+	private static List<List<S7Signal>> SortS7SignalsByMemoryArea(List<S7Signal> signals, List<S7MemoryAreas> memoryAreas){
 		List<List<S7Signal>> optimizedList = new ArrayList<List<S7Signal>>();
-		for(int datablock : datablocks) {
+		for(S7MemoryAreas memoryArea : memoryAreas) {
+			List<S7Signal> list = new ArrayList<S7Signal>();
+			for(S7Signal signal : signals) {
+				if(signal.GetMemoryArea() == memoryArea) {
+					list.add(signal);
+				}
+			}
+			optimizedList.add(list);
+		}
+		return optimizedList;
+	}
+
+	private static List<List<S7Signal>> SortS7SignalsByDatablock(List<List<S7Signal>> optimizedList, List<Integer> datablocks) {
+		List<List<S7Signal>> list = new ArrayList<List<S7Signal>>();
+		
+		for(List<S7Signal> signals : optimizedList) {
+			list.addAll(SplitS7SignalsByDatablock(signals, datablocks));
+		}
+		/*for(int datablock : datablocks) {
 			List<S7Signal> list = new ArrayList<S7Signal>();
 			for(S7Signal machine : machines) {
 				if(machine.GetDatablock() == datablock) {
@@ -126,8 +145,34 @@ public class S7RequestOptimizer {
 				}
 			}
 			optimizedList.add(list);
+		}*/
+		return list;
+	}
+	
+	private static List<List<S7Signal>> SplitS7SignalsByDatablock(List<S7Signal> signals, List<Integer> datablocks){
+		List<List<S7Signal>> optimizedSubList = new ArrayList<List<S7Signal>>();
+		
+		for(int datablock : datablocks) {
+			List<S7Signal> list = new ArrayList<S7Signal>();
+			for(S7Signal signal : signals) {
+				if(signal.GetDatablock() == datablock) {
+					list.add(signal);
+				}
+			}
+			optimizedSubList.add(list);
 		}
-		return optimizedList;
+		
+		return optimizedSubList;
+	}
+	
+	private static List<S7MemoryAreas> GetMemoryAreas(List<S7Signal> signals){
+		List<S7MemoryAreas> memoryAreas = new ArrayList<S7MemoryAreas>();
+		for(S7Signal signal : signals) {
+			if(!memoryAreas.contains(signal.GetMemoryArea())) {
+				memoryAreas.add(signal.GetMemoryArea());
+			}
+		}
+		return memoryAreas;
 	}
 
 	private static List<Integer> GetDatablocks(List<S7Signal> machines) {
