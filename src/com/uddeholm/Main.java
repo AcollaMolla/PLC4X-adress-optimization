@@ -26,7 +26,7 @@ public class Main {
 		S7Signal m8 = new S7Signal("signal8", 63, 24, 1, S7Datatypes.REAL, S7MemoryAreas.DB);
 		S7Signal m9 = new S7Signal("signal9", 63, 8, 1, S7Datatypes.INT, S7MemoryAreas.DB);
 		S7Signal m10 = new S7Signal("signal10", 63, 12, 1, S7Datatypes.INT, S7MemoryAreas.DB);*/
-		S7Signal m11 = new S7Signal("signal11", 0, 88, 0, 1, S7Datatypes.BOOL, S7MemoryAreas.M);
+		S7Signal m11 = new S7Signal("signal11", null, 88, 0, 1, S7Datatypes.BOOL, S7MemoryAreas.M);
 		S7Signal m12 = new S7Signal("signal12", 0, 86, 0, 1, S7Datatypes.BOOL, S7MemoryAreas.DB);
 
 		

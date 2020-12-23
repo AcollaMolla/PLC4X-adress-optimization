@@ -58,8 +58,41 @@ public class S7Signals {
 	}
 	
 	private String SetAddress(S7Signal base) {
+		switch(base.GetMemoryArea()) {
+		case DB:
+			return SetDbAddress(base);
+		case I:
+			return SetInputsAddress(base);
+		case Q:
+			return SetOutputsAddress(base);
+		case M:
+			return SetFlagsMarkersAddress(base);
+		default:
+			throw new UnsupportedOperationException("Unknown memory area");
+		}
+	}
+	
+	private String SetDbAddress(S7Signal base) {
 		String address;
 		address = base.GetMemoeyArea() + base.GetDatablock() + "." + base.GetDataTypeShortCode(true) + base.GetOffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
+		return address;
+	}
+	
+	private String SetInputsAddress(S7Signal base) {
+		return SetSimpleStructureAddress(base);
+	}
+	
+	private String SetOutputsAddress(S7Signal base) {
+		return SetSimpleStructureAddress(base);
+	}
+	
+	private String SetFlagsMarkersAddress(S7Signal base) {
+		return SetSimpleStructureAddress(base);
+	}
+	
+	private String SetSimpleStructureAddress(S7Signal base) {
+		String address;
+		address = base.GetMemoeyArea() + base.GetOffset() + "." + base.GetBitoffset() + ":" + base.GetNativeDatatype(true) + "[" + this.GetAddressSize() + "]";
 		return address;
 	}
 
