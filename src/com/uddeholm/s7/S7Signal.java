@@ -80,6 +80,8 @@ public class S7Signal implements Comparable<S7Signal>{
 				return "REAL";
 			case INT:
 				return "INT";
+			case WORD:
+				return "WORD";
 			case BOOL:
 				return "BYTE";
 			default:
@@ -108,6 +110,8 @@ public class S7Signal implements Comparable<S7Signal>{
 				return "DBB";
 			case INT:
 				return "DBW";
+			case WORD:
+				return "DBW";
 			default:
 				return "DBB";
 			}	
@@ -119,6 +123,8 @@ public class S7Signal implements Comparable<S7Signal>{
 		case REAL:
 			return 4;
 		case INT:
+			return 2;
+		case WORD:
 			return 2;
 		case BOOL:
 			return 1;
@@ -146,6 +152,8 @@ public class S7Signal implements Comparable<S7Signal>{
 		case REAL:
 			return "float";
 		case INT:
+			return "int";
+		case WORD:
 			return "int";
 		case TIME:
 			return "int";
