@@ -31,6 +31,12 @@ public class S7RequestOptimizer {
 	
 	private static SignalTree CreateOptimized(List<S7Signal> signals, int overhead) {
 		SignalTree signalTree = new SignalTree();
+		
+		//If the OPC UA server failed we would receive an empty list here. Set the error flag
+		if(signals == null || signals.size() == 0 || signals.isEmpty()) {
+			signalTree.SetErrors(true);
+		}
+		
 		List<List<S7Signal>> optimizedList;
 		List<Integer> datablocks;
 		List<S7MemoryAreas> memoryAreas;

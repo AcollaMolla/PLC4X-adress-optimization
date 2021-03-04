@@ -10,11 +10,13 @@ public class SignalTree {
 	private List<S7Signals> signalTree;
 	private int size;
 	private long crc32;
+	private boolean errors;
 	
 	public SignalTree() {
 		this.signalTree = new ArrayList<S7Signals>();
 		this.size = 0;
 		this.crc32 = 0;
+		this.errors = false;
 	}
 	
 	public void AddSignalsToTree(S7Signals signals) {
@@ -66,6 +68,14 @@ public class SignalTree {
 		checksumvalue = checksum.getValue();
 		
 		return checksumvalue;
+	}
+	
+	public void SetErrors(boolean errors) {
+		this.errors = errors;
+	}
+	
+	public boolean GetErrors() {
+		return this.errors;
 	}
 
 }
