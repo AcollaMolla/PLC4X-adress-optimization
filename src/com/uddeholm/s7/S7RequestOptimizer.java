@@ -34,7 +34,7 @@ public class S7RequestOptimizer {
 		
 		//If the OPC UA server failed we would receive an empty list here. Set the error flag
 		if(signals == null || signals.size() == 0 || signals.isEmpty()) {
-			signalTree.SetErrors(true);
+			signalTree.SetErrors();
 		}
 		
 		List<List<S7Signal>> optimizedList;

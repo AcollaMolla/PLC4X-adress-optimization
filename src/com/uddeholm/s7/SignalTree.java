@@ -70,8 +70,8 @@ public class SignalTree {
 		return checksumvalue;
 	}
 	
-	public void SetErrors(boolean errors) {
-		this.errors = errors;
+	public void SetErrors() {
+		this.errors = true;
 	}
 	
 	public boolean GetErrors() {
