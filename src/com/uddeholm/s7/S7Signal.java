@@ -135,7 +135,7 @@ public class S7Signal implements Comparable<S7Signal>{
 
 	@Override
 	public int compareTo(S7Signal o) {
-		if(this.offset > o.GetOffset()) {
+		if(this.offset >= o.GetOffset()) {
 			return 1;
 		}
 		else {
