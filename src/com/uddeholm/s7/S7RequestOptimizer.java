@@ -94,6 +94,7 @@ public class S7RequestOptimizer {
 	}
 
 	private static List<List<S7Signal>> SplitS7SignalsByOffset(List<S7Signal> machines, int maxOverhead) {
+		Collections.sort(machines,  (S7Signal s1, S7Signal s2) -> s1.compareTo(s2));
 		List<List<S7Signal>> optimizedSubList = new ArrayList<List<S7Signal>>();
 		List<S7Signal> list = new ArrayList<S7Signal>();
 		
